@@ -44,7 +44,7 @@ function Header({ onToggleFavorites, darkMode: initialDarkMode, toggleDarkMode: 
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      Country Book
+      CountryBook
     </motion.h1>
 
         {/* Mobile menu button */}
