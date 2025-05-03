@@ -22,6 +22,8 @@ import {
   FaChartBar,
   FaHistory,
   FaLandmark,
+  FaSun,
+  FaMoon,
 } from "react-icons/fa"
 
 // Country descriptions for the "About" section
@@ -177,6 +179,23 @@ function CountryDetail() {
     localStorage.setItem("users", JSON.stringify(allUsers))
     setUser(user)
     setIsFavorite(!isFavorite)
+  }
+
+  // Add this new function to toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => {
+      const newMode = !prev
+      if (typeof window !== "undefined") {
+        localStorage.setItem("darkMode", newMode)
+        // Apply dark mode class to document element for global effect
+        if (newMode) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.remove("dark")
+        }
+      }
+      return newMode
+    })
   }
 
   // Format large numbers with commas
@@ -846,19 +865,37 @@ function CountryDetail() {
             <FaArrowLeft className="mr-2" /> Back to Countries
           </Link>
 
-          <motion.button
-            onClick={handleFavoriteToggle}
-            className={`p-3 rounded-full transition-all duration-300 ${
-              isFavorite
-                ? "bg-red-100 dark:bg-red-900/30 text-red-500"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500"
-            }`}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-          >
-            <FaHeart className="text-xl" />
-          </motion.button>
+          <div className="flex items-center gap-3">
+            {/* Dark mode toggle button */}
+            <motion.button
+              onClick={toggleDarkMode}
+              className={`p-3 rounded-full transition-all duration-300 ${
+                darkMode ? "bg-indigo-900/30 text-yellow-400" : "bg-blue-50 text-blue-600"
+              }`}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              <motion.div initial={false} animate={{ rotate: darkMode ? 180 : 0 }} transition={{ duration: 0.5 }}>
+                {darkMode ? <FaSun className="text-xl" /> : <FaMoon className="text-xl" />}
+              </motion.div>
+            </motion.button>
+
+            {/* Favorite toggle button */}
+            <motion.button
+              onClick={handleFavoriteToggle}
+              className={`p-3 rounded-full transition-all duration-300 ${
+                isFavorite
+                  ? "bg-red-100 dark:bg-red-900/30 text-red-500"
+                  : "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500"
+              }`}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            >
+              <FaHeart className="text-xl" />
+            </motion.button>
+          </div>
         </div>
 
         {/* Hero section with flag and name */}
