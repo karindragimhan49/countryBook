@@ -324,15 +324,13 @@ function Home() {
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      <div className="min-h-screen bg-white dark:bg-[#0f172a] transition-colors duration-500 overflow-hidden">
+      <div className="min-h-screen bg-[#f8fafc] dark:bg-[#0f172a] transition-colors duration-500 overflow-hidden">
         <Header onToggleFavorites={setShowFavorites} darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
         {/* Hero Section with Animated Background and Flags */}
         <div className="relative overflow-hidden">
           {/* Background gradient */}
-          <div
-            className={`absolute inset-0 ${darkMode ? "bg-gradient-to-r from-violet-600 to-indigo-800 opacity-80" : "bg-gradient-to-r from-blue-400 to-blue-600 opacity-70"} transition-colors duration-500`}
-          ></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-700 dark:from-violet-600 dark:to-indigo-800 opacity-80 dark:opacity-80"></div>
           <div className="absolute inset-0 bg-[url('/pattern-grid.svg')] opacity-10"></div>
 
           {/* Animated Country Flags */}
@@ -393,7 +391,7 @@ function Home() {
                 </span>
               </motion.h1>
               <motion.p
-                className="text-xl md:text-2xl max-w-3xl text-white leading-relaxed"
+                className="text-xl md:text-2xl max-w-3xl text-indigo-100 leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -410,7 +408,7 @@ function Home() {
               >
                 <motion.a
                   href="#country-list"
-                  className="px-6 py-3 bg-white text-blue-600 dark:text-indigo-700 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                  className="px-6 py-3 bg-white text-indigo-700 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                   whileHover={{
                     scale: 1.05,
                     boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.4)",
@@ -424,11 +422,11 @@ function Home() {
                 </motion.a>
                 <motion.button
                   onClick={() => setShowFavorites(!showFavorites)}
-                  className="px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-blue-600 dark:hover:text-indigo-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                  className="px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-indigo-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                   whileHover={{
                     scale: 1.05,
                     backgroundColor: "rgba(255, 255, 255, 1)",
-                    color: darkMode ? "rgb(67, 56, 202)" : "rgb(37, 99, 235)",
+                    color: "rgb(67, 56, 202)",
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -442,7 +440,7 @@ function Home() {
           <div className="absolute bottom-0 left-0 right-0">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto">
               <path
-                fill={darkMode ? "#0f172a" : "#ffffff"}
+                fill={darkMode ? "#0f172a" : "#f8fafc"}
                 fillOpacity="1"
                 d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
               ></path>
@@ -453,7 +451,7 @@ function Home() {
         <div className="max-w-6xl mx-auto px-6 pb-12 relative z-10">
           {/* Stats Banner */}
           <motion.div
-            className="flex flex-wrap justify-around items-center mb-10 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl dark:shadow-indigo-900/20 transition-colors duration-300 border border-gray-100 dark:border-gray-700"
+            className="flex flex-wrap justify-around items-center mb-10 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl dark:shadow-indigo-900/20 transition-colors duration-300 border border-gray-100 dark:border-gray-700"
             variants={statsVariants}
             initial="hidden"
             animate="visible"
@@ -462,19 +460,19 @@ function Home() {
               {
                 label: "Countries",
                 value: countries.length,
-                icon: <FaGlobe className="w-6 h-6 text-blue-500 dark:text-indigo-500" />,
+                icon: <FaGlobe className="w-6 h-6 text-indigo-500" />,
                 description: "Explore countries worldwide",
               },
               {
                 label: "Regions",
                 value: topRegions.length,
-                icon: <FaMapMarkerAlt className="w-6 h-6 text-blue-500 dark:text-indigo-500" />,
+                icon: <FaMapMarkerAlt className="w-6 h-6 text-indigo-500" />,
                 description: "Discover diverse regions",
               },
               {
                 label: "Languages",
                 value: topLanguages.length,
-                icon: <FaLanguage className="w-6 h-6 text-blue-500 dark:text-indigo-500" />,
+                icon: <FaLanguage className="w-6 h-6 text-indigo-500" />,
                 description: "Learn about global languages",
               },
               {
@@ -505,13 +503,13 @@ function Home() {
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <motion.div
-                  className="mb-2 p-3 rounded-full bg-blue-100 dark:bg-indigo-900/30 group-hover:bg-blue-200 dark:group-hover:bg-indigo-800/40 transition-colors duration-300"
+                  className="mb-2 p-3 rounded-full bg-indigo-100 dark:bg-indigo-900/30 group-hover:bg-indigo-200 dark:group-hover:bg-indigo-800/40 transition-colors duration-300"
                   whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                   transition={{ duration: 0.5 }}
                 >
                   {icon}
                 </motion.div>
-                <p className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 dark:from-indigo-400 dark:to-violet-300 text-transparent bg-clip-text">
+                <p className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-violet-500 dark:from-indigo-400 dark:to-violet-300 text-transparent bg-clip-text">
                   {value}
                 </p>
                 <p className="text-gray-600 dark:text-gray-300 font-medium">{label}</p>
@@ -575,9 +573,9 @@ function Home() {
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
                 <div className="relative w-24 h-24">
-                  <div className="absolute top-0 left-0 w-full h-full border-8 border-blue-200 dark:border-indigo-900/30 rounded-full"></div>
+                  <div className="absolute top-0 left-0 w-full h-full border-8 border-indigo-200 dark:border-indigo-900/30 rounded-full"></div>
                   <motion.div
-                    className="absolute top-0 left-0 w-full h-full border-8 border-transparent border-t-blue-600 dark:border-t-indigo-400 rounded-full"
+                    className="absolute top-0 left-0 w-full h-full border-8 border-transparent border-t-indigo-600 dark:border-t-indigo-400 rounded-full"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
                   ></motion.div>
@@ -636,19 +634,15 @@ function Home() {
         </div>
 
         {/* Footer with Animated Gradient */}
-        <footer
-          className={`relative overflow-hidden ${darkMode ? "bg-gray-900" : "bg-gray-100"} text-gray-600 dark:text-gray-300 py-12 mt-16 shadow-inner transition-colors duration-500`}
-        >
-          <div
-            className={`absolute inset-0 ${darkMode ? "bg-gradient-to-r from-indigo-900/20 to-violet-900/20" : "bg-gradient-to-r from-blue-100/50 to-blue-200/50"} transition-colors duration-500`}
-          ></div>
+        <footer className="relative overflow-hidden bg-gray-900 text-gray-300 py-12 mt-16 shadow-inner">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/20 to-violet-900/20"></div>
 
           {/* Animated Dots */}
           <div className="absolute inset-0 overflow-hidden">
             {Array.from({ length: 15 }).map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute rounded-full bg-blue-500 dark:bg-white opacity-10"
+                className="absolute rounded-full bg-white opacity-10"
                 style={{
                   width: Math.random() * 4 + 2,
                   height: Math.random() * 4 + 2,
@@ -708,21 +702,13 @@ function Home() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h3
-                className={`text-2xl font-bold mb-4 text-transparent bg-clip-text ${darkMode ? "bg-gradient-to-r from-indigo-400 to-purple-300" : "bg-gradient-to-r from-blue-600 to-blue-400"}`}
-              >
+              <h3 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-300">
                 Country Book
               </h3>
-              <p className="mb-6 text-gray-500 dark:text-gray-400">
-                Explore our beautiful world, one country at a time.
-              </p>
+              <p className="mb-6 text-gray-400">Explore our beautiful world, one country at a time.</p>
               <div className="flex justify-center space-x-6 mb-8">
                 {["Facebook", "Twitter", "Instagram", "GitHub"].map((social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-white transition-colors duration-300"
-                  >
+                  <a key={social} href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
                     {social}
                   </a>
                 ))}
