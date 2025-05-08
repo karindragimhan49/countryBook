@@ -78,6 +78,7 @@ function CountryDetail() {
   const [countryImages, setCountryImages] = useState([])
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [darkMode, setDarkMode] = useState(false)
+  const [error, setError] = useState(null)
   const mapRef = useRef(null)
 
   // Check dark mode from localStorage
@@ -91,28 +92,58 @@ function CountryDetail() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
+      setError(null)
+
       try {
-        const res = await getCountryByCode(code)
-        setCountry(res[0]) // API returns an array
+        // First try to get from localStorage cache
+        const cachedCountries = localStorage.getItem("allCountries")
+        let countryData = null
 
-        // Set country images
-        setCountryImages(getCountryImages(code))
+        if (cachedCountries) {
+          try {
+            const allCountries = JSON.parse(cachedCountries)
+            countryData = allCountries.find((c) => c.cca3 === code)
+          } catch (err) {
+            console.error("Error parsing cached countries:", err)
+          }
+        }
 
-        // Check if country is in favorites
-        const username = localStorage.getItem("user")
-        if (username) {
-          const allUsers = JSON.parse(localStorage.getItem("users")) || {}
-          const user = allUsers[username]
-          setUser(user)
-          setIsFavorite(user?.favorites?.includes(code) || false)
+        // If not found in cache, fetch from API
+        if (!countryData) {
+          const res = await getCountryByCode(code)
+          if (res && Array.isArray(res) && res.length > 0) {
+            countryData = res[0]
+          } else {
+            throw new Error("Country not found")
+          }
+        }
+
+        if (countryData) {
+          setCountry(countryData)
+
+          // Set country images
+          setCountryImages(getCountryImages(code))
+
+          // Check if country is in favorites
+          const username = localStorage.getItem("user")
+          if (username) {
+            const allUsers = JSON.parse(localStorage.getItem("users")) || {}
+            const user = allUsers[username]
+            setUser(user)
+            setIsFavorite(user?.favorites?.includes(code) || false)
+          }
+        } else {
+          throw new Error("Country data is invalid")
         }
       } catch (err) {
         console.error("Error loading country:", err)
+        setError(err.message || "Failed to load country data")
       } finally {
         // Add a slight delay for smoother loading animation
         setTimeout(() => setLoading(false), 800)
       }
     }
+
     fetchData()
   }, [code])
 
@@ -228,6 +259,32 @@ function CountryDetail() {
             </div>
           </button>
         ))}
+      </div>
+    )
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div
+        className={`min-h-screen flex items-center justify-center ${darkMode ? "bg-gray-900 text-gray-100" : "bg-gray-50 text-gray-900"} transition-colors duration-300`}
+      >
+        <motion.div
+          className="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-xl"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <FaInfoCircle className="text-5xl text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-2">Error Loading Country</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">{error}</p>
+          <Link
+            to="/"
+            className="inline-flex items-center px-6 py-3 bg-blue-600 dark:bg-indigo-600 text-white font-medium rounded-full hover:bg-blue-700 dark:hover:bg-indigo-700 transition-colors"
+          >
+            <FaArrowLeft className="mr-2" /> Return Home
+          </Link>
+        </motion.div>
       </div>
     )
   }
@@ -907,7 +964,7 @@ function CountryDetail() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="absolute inset-0 bg-[url('/pattern-grid.svg')] opacity-10"></div>
+          <div className="absolute inset-0 opacity-10"></div>
 
           <div className="relative z-10 p-8 sm:p-12 flex flex-col md:flex-row items-center gap-8">
             <motion.div
