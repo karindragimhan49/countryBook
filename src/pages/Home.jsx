@@ -10,12 +10,15 @@ import { getAllCountries } from "../services/api"
 import { FaGlobe, FaMapMarkerAlt, FaLanguage, FaSearch, FaCompass } from "react-icons/fa"
 
 // Sample country flags for animations - reduced number for better performance
-const popularFlags = [
-  "https://flagcdn.com/w320/us.png", // USA
-  "https://flagcdn.com/w320/gb.png", // UK
-  "https://flagcdn.com/w320/fr.png", // France
-  "https://flagpedia.net/sri-lanka", // Japan
+const popularFlags = [ // USA
+  
+  "https://flagcdn.com/w320/gb.png", // UK // France// Japan
+  "https://flagcdn.com/w320/lk.png",
   "https://flagcdn.com/w320/br.png", // Brazil
+  "https://flagcdn.com/w320/in.png", // India
+  "https://flagcdn.com/w320/au.png", // Australia
+
+   // Sri Lanka
 ]
 
 function Home() {
