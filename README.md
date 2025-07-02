@@ -2,9 +2,11 @@
 
 This application provides comprehensive information about countries around the world, allowing users to search, filter, and save their favorite countries.
 
-## Deployment
+This application provides comprehensive information about countries around the world, allowing users to search, filter, and save their favorite countries.
 
-The application is deployed and accessible at the following link:
+![Country Book App](https://raw.githubusercontent.com/karindragimhan49/countryBook/7fa964863cb679010b77aa458273aceaed19b66b/src/White%20and%20Violet%20Professional%20Modern%20Technology%20Pitch%20Deck%20Presentation%20(3).png)
+
+## Deployment
 
 [Country Details Frontend](https://country-book-ten.vercel.app/)
 
